@@ -20,3 +20,38 @@ class Solution:
         self.helper(root.left, res)
         self.helper(root.right, res)
         return
+
+    # 压STACK的顺序： 根，右， 左
+    def preorderTraversal2(self, root: TreeNode) -> List[int]:
+        res = []
+        if root is None:
+            return res
+
+        stack = []
+        stack.append(root)
+
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        return res
+
+    def preorderTraversal3(self, root: TreeNode) -> List[int]:
+        res = []
+        if root is None:
+            return res
+
+        stack = []
+        while root is not None or stack:
+            if root is not None:
+                res.append(root.val)
+                stack.append(root)
+                root = root.left
+            else:
+                node = stack.pop()
+                root = node.right
+        return res
